@@ -11,6 +11,7 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private Button savebtn;
@@ -40,24 +41,33 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-            final ParseObject kickboxer = new ParseObject("KickBoxer");
-            kickboxer.put("Name",edtName.getText().toString());
+        try {
 
-            kickboxer.put("Punch_Power",Integer.parseInt(edtPP.getText().toString()));
-            kickboxer.put("Punch_Speed",Integer.parseInt(edtPS.getText().toString()));
-            kickboxer.put("Kick_Power",Integer.parseInt(edtKP.getText().toString()));
-            kickboxer.put("Kick_Speed",Integer.parseInt(edtKS.getText().toString()));
+            final ParseObject kickboxer = new ParseObject("KickBoxer");
+            kickboxer.put("Name", edtName.getText().toString());
+
+            kickboxer.put("Punch_Power", Integer.parseInt(edtPP.getText().toString()));
+            kickboxer.put("Punch_Speed", Integer.parseInt(edtPS.getText().toString()));
+            kickboxer.put("Kick_Power", Integer.parseInt(edtKP.getText().toString()));
+            kickboxer.put("Kick_Speed", Integer.parseInt(edtKS.getText().toString()));
             kickboxer.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {
-                        Toast.makeText(SignUp.this,kickboxer.get("Name") + " has been added to database!",Toast.LENGTH_LONG).show();
-                    } else
-                    {
-                        Toast.makeText(SignUp.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                        FancyToast.makeText(SignUp.this, kickboxer.get("Name") + " has been added to database!", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+
+
+                    } else {
+                        FancyToast.makeText(SignUp.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+
+
                     }
                 }
             });
+        } catch (Exception e) {
+            FancyToast.makeText(SignUp.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+
+        }
         }
     }
 
