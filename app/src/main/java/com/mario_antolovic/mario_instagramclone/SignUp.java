@@ -5,17 +5,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private Button savebtn;
     private EditText edtName,edtPP,edtPS,edtKP,edtKS;
+    private TextView txt_getdata;
 
     public SignUp() {
     }
@@ -34,6 +38,38 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         edtPS = findViewById(R.id.edtPS);
         edtKP = findViewById(R.id.edtKP);
         edtKS = findViewById(R.id.edtKS);
+
+        txt_getdata = findViewById(R.id.txt_getdata);
+
+        txt_getdata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("KickBoxer");
+                parseQuery.getInBackground("rZxaeqosYp", new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        if (object !=null && e == null) {
+                            txt_getdata.setText(object.get("Name") + "-" + "Punch Power:" + object.get("Punch_Power") + "Punch Speed:" + object.get("Punch_Speed")
+                            + "Kick Power:" + object.get("Kick_Power") + "Kick_Speed" + object.get("Kick_Speed"));
+                        }
+                    }
+                });
+
+              //  parseQuery.getInBackground("ffC3AvlgFv", new GetCallback<ParseObject>()
+               // {
+                   // @Override
+                  //  public void done(ParseObject object, ParseException e) {
+                 //    if (object != null && e == null) {
+                 //        txt_getdata.setText(object.get("Name") + " - " + "Punch Power:" + object.get("Punch_Power"));
+
+              //       }
+             //       }
+             //   });
+
+            }
+        });
+
+
 
 
     }
