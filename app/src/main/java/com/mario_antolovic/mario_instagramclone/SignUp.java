@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -15,6 +16,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.shashank.sony.fancytoastlib.FancyToast;
+
+import java.util.List;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private Button savebtn;
@@ -45,15 +48,23 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("KickBoxer");
-                parseQuery.getInBackground("rZxaeqosYp", new GetCallback<ParseObject>() {
+                parseQuery.findInBackground(new FindCallback<ParseObject>() {
                     @Override
-                    public void done(ParseObject object, ParseException e) {
-                        if (object !=null && e == null) {
-                            txt_getdata.setText(object.get("Name") + "-" + "Punch Power:" + object.get("Punch_Power") + "Punch Speed:" + object.get("Punch_Speed")
-                            + "Kick Power:" + object.get("Kick_Power") + "Kick_Speed" + object.get("Kick_Speed"));
+                    public void done(List<ParseObject> objects, ParseException e) {
+                        if (e == null) {
+                            if (objects.size()>0) {
+                                FancyToast.makeText(SignUp.this, "Succes", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+
+                            } else
+                            {
+                                FancyToast.makeText(SignUp.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+
+                            }
                         }
                     }
                 });
+            }
+
 
               //  parseQuery.getInBackground("ffC3AvlgFv", new GetCallback<ParseObject>()
                // {
@@ -66,7 +77,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
              //       }
              //   });
 
-            }
+
         });
 
 
