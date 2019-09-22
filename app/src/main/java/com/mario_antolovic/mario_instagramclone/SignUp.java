@@ -24,6 +24,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private EditText edtName,edtPP,edtPS,edtKP,edtKS;
     private TextView txt_getdata;
 
+    private String getalldata;
+
+    private Button btnnext;
+
     public SignUp() {
     }
 
@@ -35,6 +39,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         savebtn = findViewById(R.id.btn_save);
         savebtn.setOnClickListener(SignUp.this);
+        btnnext = findViewById(R.id.btn_next);
+
 
         edtName = findViewById(R.id.edtName);
         edtPP= findViewById(R.id.edtPP);
@@ -47,13 +53,22 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         txt_getdata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("KickBoxer");
-                parseQuery.findInBackground(new FindCallback<ParseObject>() {
+                getalldata = "";
+                ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("KickBoxer");
+
+                queryAll.whereGreaterThan("Punch_Power",5000);
+
+                queryAll.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
                         if (e == null) {
                             if (objects.size()>0) {
-                                FancyToast.makeText(SignUp.this, "Succes", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                                for (ParseObject kickBoxer : objects) {
+
+                                    getalldata = getalldata + kickBoxer.get("Name") + "\n";
+                                }
+
+                                FancyToast.makeText(SignUp.this, getalldata, FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
 
                             } else
                             {
@@ -80,7 +95,12 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         });
 
+     btnnext.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
 
+         }
+     });
 
 
     }
