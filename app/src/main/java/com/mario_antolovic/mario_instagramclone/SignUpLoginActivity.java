@@ -18,6 +18,7 @@ public class SignUpLoginActivity extends AppCompatActivity {
 
     private Button btnlogin;
     private EditText edt_userlogin,edt_loginpass;
+    private Button nextactivity;
 
 
 
@@ -30,6 +31,7 @@ public class SignUpLoginActivity extends AppCompatActivity {
 //btn login and signup
        // btnsignup = findViewById(R.id.btn_signup);
         btnlogin = findViewById(R.id.btn_login);
+        nextactivity = findViewById(R.id.btn_regactivity);
 //sign up
 
 //login
@@ -59,6 +61,13 @@ public class SignUpLoginActivity extends AppCompatActivity {
                         });
 
 
+            }
+        });
+        nextactivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUpLoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
             }
         });
 
