@@ -30,6 +30,9 @@ public class HomeActivity extends AppCompatActivity {
         btnlogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // another option to logout with parse
+                // ParseUser.logout();
+                // finish();
                 Intent intent = new Intent(HomeActivity.this, SignUpLoginActivity.class);
                 startActivity(intent);
                 finish();
