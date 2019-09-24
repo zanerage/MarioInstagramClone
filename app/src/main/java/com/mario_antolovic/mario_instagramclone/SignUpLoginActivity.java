@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -14,7 +16,7 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-public class SignUpLoginActivity extends AppCompatActivity {
+public class SignUpLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnlogin;
     private EditText edt_userlogin,edt_loginpass;
@@ -37,6 +39,15 @@ public class SignUpLoginActivity extends AppCompatActivity {
 //login
         edt_userlogin = findViewById(R.id.edt_loginuser);
         edt_loginpass = findViewById(R.id.edt_loginpass);
+        edt_loginpass.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode== KeyEvent.KEYCODE_ENTER && event.getAction()== KeyEvent.ACTION_DOWN) {
+                    onClick(btnlogin);
+                }
+                return false;
+            }
+        });
 
 //initiliaze buttons
 
@@ -70,6 +81,20 @@ public class SignUpLoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+    public void user_tap2(View view) {
+        try {
+            InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }
