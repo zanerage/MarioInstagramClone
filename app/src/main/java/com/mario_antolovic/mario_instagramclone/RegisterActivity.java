@@ -28,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
 
         btnsignup = findViewById(R.id.btn_signup);
 
+
         edt_username = findViewById(R.id.edt_username);
         edt_password = findViewById(R.id.edt_password);
         edt_password.setOnKeyListener(new View.OnKeyListener() {
@@ -41,6 +42,11 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
             }
         });
         edt_email = findViewById(R.id.edt_email);
+        if (ParseUser.getCurrentUser() != null) {
+            Intent intent = new Intent(RegisterActivity.this,HomeActivity.class);
+
+        }
+
 
 
         btnsignup.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
                 if (edt_email.getText().toString().equals("")|| edt_username.getText().toString().equals("")|| edt_password.getText().toString().equals("")) {
 
                     FancyToast.makeText(RegisterActivity.this,"Email, Username, Password fields are required!" , FancyToast.LENGTH_SHORT, FancyToast.INFO, true).show();
+
 
                 } else  {
                     final ParseUser appUser = new ParseUser();
@@ -68,6 +75,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
                                 FancyToast.makeText(RegisterActivity.this,"You've successful registered " + appUser.get("username") , FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
                                 Intent intent = new Intent(RegisterActivity.this,HomeActivity.class);
                                 startActivity(intent);
+
 
                             } else
                             {

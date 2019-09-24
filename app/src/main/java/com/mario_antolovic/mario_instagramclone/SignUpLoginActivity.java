@@ -49,6 +49,7 @@ public class SignUpLoginActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
+
 //initiliaze buttons
 
 //loginuser
