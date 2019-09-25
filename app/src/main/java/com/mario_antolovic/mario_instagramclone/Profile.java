@@ -43,6 +43,34 @@ public class Profile extends Fragment {
         //parse bk4app
 
         final ParseUser parseUser = ParseUser.getCurrentUser();
+// i tried .equals instead of == // but it compare context not objects
+        if (parseUser.get("profileName")==null) {
+            edtProfileName.setText("");
+            if (parseUser.get("profileBio")==null) {
+                edtProfileBio.setText("");
+            }
+            if (parseUser.get("profileProff")==null) {
+                edtProfileProff.setText("");
+            }
+            if (parseUser.get("profileHobbie")==null) {
+                edtProfileHobbies.setText("");
+            }
+            if (parseUser.get("profileFavSport")==null) {
+                edtProfilefavsport.setText("");
+            }
+        } else {
+            edtProfileName.setText(parseUser.get("profileName").toString());
+            edtProfileBio.setText(parseUser.get("profileBio").toString());
+            edtProfileProff.setText(parseUser.get("profileProff").toString());
+            edtProfileHobbies.setText(parseUser.get("profileHobbie").toString());
+            edtProfilefavsport.setText(parseUser.get("profileFavSport").toString());
+
+
+        }
+
+// toString will crash app so had to use empty string
+
+
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
