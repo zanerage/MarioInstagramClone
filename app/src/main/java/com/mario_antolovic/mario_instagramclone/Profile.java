@@ -6,12 +6,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Profile extends Fragment {
+    private EditText edtProfileName,edtProfileBio,edtProfileProff,edtProfileHobbies,edtProfilefavsport;
+    private Button btnUpdate;
 
 
     public Profile() {
@@ -23,7 +32,44 @@ public class Profile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view =  inflater.inflate(R.layout.fragment_profile, container, false);
+        edtProfileName = view.findViewById(R.id.txt_profile);
+        edtProfileBio = view.findViewById(R.id.txt_bio);
+        edtProfileProff = view.findViewById(R.id.txt_profy);
+        edtProfileHobbies = view.findViewById(R.id.txt_hobbie);
+        edtProfilefavsport = view.findViewById(R.id.txt_favsport);
+        //button
+        btnUpdate = view.findViewById(R.id.btn_update);
+        //parse bk4app
+
+        final ParseUser parseUser = ParseUser.getCurrentUser();
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                parseUser.put("profileName",edtProfileName.getText().toString());
+                parseUser.put("profileBio",edtProfileBio.getText().toString());
+                parseUser.put("profileProff",edtProfileProff.getText().toString());
+                parseUser.put("profileHobbie",edtProfileHobbies.getText().toString());
+                parseUser.put("profileFavSport",edtProfilefavsport.getText().toString());
+
+                parseUser.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            FancyToast.makeText(getContext(),"Info is Updated", FancyToast.LENGTH_SHORT, FancyToast.INFO, true).show();
+
+                        }  else {
+                            FancyToast.makeText(getContext(),e.getMessage(), FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
+
+                        }
+                    }
+                });
+            }
+        });
+
+        return view;
+
     }
 
 }

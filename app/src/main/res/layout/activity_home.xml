@@ -13,8 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include android:id="@+id/myToolbar"
-            layout="@layout/my_toolbar"/>
+        <include
+            android:id="@+id/myToolbar"
+            layout="@layout/my_toolbar"
+            android:visibility="gone" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
