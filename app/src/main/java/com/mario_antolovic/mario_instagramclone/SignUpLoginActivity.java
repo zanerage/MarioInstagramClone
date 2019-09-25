@@ -49,6 +49,12 @@ public class SignUpLoginActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
+        if (ParseUser.getCurrentUser() != null) {
+
+            Intent intent = new Intent(SignUpLoginActivity.this,HomeActivity.class);
+
+        }
+
 
 //initiliaze buttons
 

@@ -29,6 +29,18 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        setTitle("Mario Insta Clone");
+
+        toolbar = findViewById(R.id.myToolbar);
+        setSupportActionBar(toolbar);
+
+        viewPager = findViewById(R.id.viewPager);
+        tabAdapter = new TabAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(tabAdapter);
+
+        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager,false);
+
 
     }
 }
