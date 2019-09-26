@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -29,6 +30,7 @@ public class Users extends Fragment {
 
 
 
+
     public Users() {
         // Required empty public constructor
     }
@@ -43,6 +45,8 @@ public class Users extends Fragment {
         listView = view.findViewById(R.id.listView);
         arrayList = new ArrayList();
         arrayAdapter = new ArrayAdapter(getContext(),android.R.layout.simple_list_item_1,arrayList);
+        final TextView txtLoading = view.findViewById(R.id.txt_loading);
+
 
         ParseQuery<ParseUser> parseQuery = ParseUser.getQuery();
 
@@ -57,6 +61,8 @@ public class Users extends Fragment {
                             arrayList.add(user.getUsername());
                         }
                         listView.setAdapter(arrayAdapter);
+                        txtLoading.animate().alpha(0).setDuration(2000);
+                        listView.setVisibility(View.VISIBLE);
 
                     }
                 }
