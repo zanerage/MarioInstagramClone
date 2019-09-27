@@ -16,7 +16,7 @@
         <include
             android:id="@+id/myToolbar"
             layout="@layout/my_toolbar"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
