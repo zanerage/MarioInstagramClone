@@ -86,6 +86,8 @@ public class HomeActivity extends AppCompatActivity {
         else if (item.getItemId()== R.id.Logout_user_item) {
             ParseUser.getCurrentUser().logOut();
             finish();
+            Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

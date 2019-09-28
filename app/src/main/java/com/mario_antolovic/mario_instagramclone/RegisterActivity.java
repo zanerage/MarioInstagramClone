@@ -49,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
 
 
 
-        btnsignup.setOnClickListener(new View.OnClickListener() {
+        btnsignup.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (edt_email.getText().toString().equals("")|| edt_username.getText().toString().equals("")|| edt_password.getText().toString().equals("")) {
@@ -75,6 +75,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
                                 FancyToast.makeText(RegisterActivity.this,"You've successful registered " + appUser.get("username") , FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
                                 Intent intent = new Intent(RegisterActivity.this,HomeActivity.class);
                                 startActivity(intent);
+                                finish();
 
 
                             } else
@@ -103,4 +104,5 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         }
 
     }
+
 }
