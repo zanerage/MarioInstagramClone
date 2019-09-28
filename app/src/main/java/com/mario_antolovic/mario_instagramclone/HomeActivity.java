@@ -83,6 +83,10 @@ public class HomeActivity extends AppCompatActivity {
                 captureImage();
             }
         }
+        else if (item.getItemId()== R.id.Logout_user_item) {
+            ParseUser.getCurrentUser().logOut();
+            finish();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -126,10 +130,15 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void done(ParseException e) {
                         if (e==null) {
-                            FancyToast.makeText(HomeActivity.this,"")
+                            FancyToast.makeText(HomeActivity.this,"Info is Updated", FancyToast.LENGTH_SHORT, FancyToast.INFO, true).show();
+
+                        } else {
+                            FancyToast.makeText(HomeActivity.this,e.getMessage(), FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
+
                         }
+                        dialog.dismiss();
                     }
-                })
+                });
 
             } catch (Exception e){
                 e.printStackTrace();
